@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreatePizzaRequest;
+use App\Http\Services\PizzaService;
 use App\Models\Pizza;
 use Illuminate\Http\Request;
 
@@ -18,9 +20,9 @@ class PizzaController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(CreatePizzaRequest $request, PizzaService $service)
     {
-        //
+        return $service->createPizza($request);
     }
 
     /**
