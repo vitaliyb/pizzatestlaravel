@@ -42,6 +42,15 @@ class PizzaService
         return $pizza->refresh();
     }
 
+    public function removePizzaIngredient(Pizza $pizza, Ingredient $ingredient): Pizza
+    {
+        $pizza->pizzaIngredients()->where('ingredient_id', $ingredient->id)->delete();
+
+        $this->refreshPizzaPrice($pizza);
+
+        return $pizza->refresh();
+    }
+
     protected function refreshPizzaPrice(Pizza $pizza): Pizza
     {
         $price = 0;

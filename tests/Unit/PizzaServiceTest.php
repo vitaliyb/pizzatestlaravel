@@ -76,4 +76,24 @@ class PizzaServiceTest extends TestCase
 
         $this->assertEquals(1.80, $pizza->price);
     }
+
+    public function testRemovePizzaIngredient()
+    {
+        /**
+         * @var $service PizzaService
+         * @var $pizza Pizza
+         */
+        $service = app(PizzaService::class);
+
+        $pizza = Pizza::factory()->create();
+        $ingredient1 = Ingredient::factory()->create();
+        $pizza = $service->addPizzaIngredient($pizza, $ingredient1);
+
+        $service->removePizzaIngredient($pizza, $ingredient1);
+
+        $pizza->refresh();
+
+        $this->assertEquals(0, $pizza->price);
+        $this->assertEquals(0, $pizza->pizzaIngredients()->count());
+    }
 }

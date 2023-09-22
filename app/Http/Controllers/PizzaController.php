@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AddPizzaIngredientRequest;
 use App\Http\Requests\CreateIngredientRequest;
 use App\Http\Requests\CreatePizzaRequest;
+use App\Http\Requests\RemovePizzaIngredientRequest;
 use App\Http\Services\PizzaService;
 use App\Models\Ingredient;
 use App\Models\Pizza;
@@ -39,6 +40,14 @@ class PizzaController extends Controller
         $ingredient = Ingredient::findOrFail($request->get('ingredient_id'));
 
         return $service->addPizzaIngredient($pizza, $ingredient);
+    }
+
+    public function removePizzaIngredient(RemovePizzaIngredientRequest $request, PizzaService $service)
+    {
+        $pizza = Pizza::findOrFail($request->get('pizza_id'));
+        $ingredient = Ingredient::findOrFail($request->get('ingredient_id'));
+
+        return $service->removePizzaIngredient($pizza, $ingredient);
     }
 
 
