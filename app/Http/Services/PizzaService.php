@@ -3,6 +3,7 @@
 namespace App\Http\Services;
 
 
+use App\Events\PizzaIngredientsUpdated;
 use App\Models\Ingredient;
 use App\Models\Pizza;
 use App\Models\PizzaIngredient;
@@ -36,6 +37,20 @@ class PizzaService
             'ingredient_id' => $ingredient->id
         ]);
 
+        $this->refreshPizzaPrice($pizza);
+
         return $pizza->refresh();
+    }
+
+    protected function refreshPizzaPrice(Pizza $pizza): Pizza
+    {
+        $sum = 0;
+        $pizza->pizzaIngredients()->with('ingredient')->each(function (PizzaIngredient $pizzaIngredient) use (&$sum) {
+            $sum += $pizzaIngredient->ingredient->price;
+        });
+        $pizza->price = $sum;
+        $pizza->save();
+
+        return $pizza;
     }
 }
