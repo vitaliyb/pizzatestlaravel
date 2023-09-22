@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddPizzaIngredientRequest;
 use App\Http\Requests\CreateIngredientRequest;
 use App\Http\Requests\CreatePizzaRequest;
 use App\Http\Services\PizzaService;
+use App\Models\Ingredient;
 use App\Models\Pizza;
 use Illuminate\Http\Request;
 
@@ -29,6 +31,14 @@ class PizzaController extends Controller
     public function createIngredient(CreateIngredientRequest $request, PizzaService $service)
     {
         return $service->createIngredient($request->get('name'), $request->get('price'));
+    }
+
+    public function addPizzaIngredient(AddPizzaIngredientRequest $request, PizzaService $service)
+    {
+        $pizza = Pizza::findOrFail($request->get('pizza_id'));
+        $ingredient = Ingredient::findOrFail($request->get('ingredient_id'));
+
+        return $service->addPizzaIngredient($pizza, $ingredient);
     }
 
 

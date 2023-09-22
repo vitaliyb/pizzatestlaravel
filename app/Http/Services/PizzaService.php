@@ -5,6 +5,7 @@ namespace App\Http\Services;
 
 use App\Models\Ingredient;
 use App\Models\Pizza;
+use App\Models\PizzaIngredient;
 
 class PizzaService
 {
@@ -26,5 +27,15 @@ class PizzaService
         $ingredient->save();
 
         return $ingredient;
+    }
+
+    public function addPizzaIngredient(Pizza $pizza, Ingredient $ingredient): Pizza
+    {
+        PizzaIngredient::firstOrCreate([
+            'pizza_id' => $pizza->id,
+            'ingredient_id' => $ingredient->id
+        ]);
+
+        return $pizza->refresh();
     }
 }
