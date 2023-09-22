@@ -7,13 +7,13 @@ use App\Models\Pizza;
 class PizzaObserver
 {
 
-    public function saving(Pizza $ingredient): void
+    public function saving(Pizza $pizza): void
     {
-        $ingredient->price = $ingredient->price * 100;
+        $pizza->price = $pizza->price * 100;
     }
 
-    public function retrieved(Pizza $ingredient): void
+    public function retrieved(Pizza $pizza): void
     {
-        $ingredient->price = $ingredient->price / 100;
+        $pizza->price = $pizza->price / 100;
     }
 }
