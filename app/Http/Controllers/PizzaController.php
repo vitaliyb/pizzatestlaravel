@@ -20,9 +20,9 @@ class PizzaController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(CreatePizzaRequest $request, PizzaService $service)
+    public function createPizza(CreatePizzaRequest $request, PizzaService $service)
     {
-        return $service->createPizza($request);
+        return $service->createPizza($request->get('name'));
     }
 
     /**
