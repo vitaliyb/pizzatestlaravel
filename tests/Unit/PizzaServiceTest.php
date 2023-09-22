@@ -74,6 +74,6 @@ class PizzaServiceTest extends TestCase
 
         $pizza = $service->addPizzaIngredient($pizza, $ingredient1);
 
-        $this->assertEquals(1.20, $pizza->price);
+        $this->assertEquals(1.80, $pizza->price);
     }
 }

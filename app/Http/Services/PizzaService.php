@@ -9,6 +9,8 @@ use App\Models\PizzaIngredient;
 class PizzaService
 {
 
+    const PIZZA_PRICE_MARKUP = 0.5;
+
     public function createPizza(string $name): Pizza
     {
         $pizza = new Pizza();
@@ -42,11 +44,15 @@ class PizzaService
 
     protected function refreshPizzaPrice(Pizza $pizza): Pizza
     {
-        $sum = 0;
-        $pizza->pizzaIngredients()->with('ingredient')->each(function (PizzaIngredient $pizzaIngredient) use (&$sum) {
-            $sum += $pizzaIngredient->ingredient->price;
+        $price = 0;
+        $pizza->pizzaIngredients()->with('ingredient')->each(function (PizzaIngredient $pizzaIngredient) use (&$price) {
+            $price += $pizzaIngredient->ingredient->price;
         });
-        $pizza->price = $sum;
+
+        $price += $price * self::PIZZA_PRICE_MARKUP;
+
+        $pizza->price = $price;
+
         $pizza->save();
 
         return $pizza;
