@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateIngredientRequest;
 use App\Http\Requests\CreatePizzaRequest;
 use App\Http\Services\PizzaService;
 use App\Models\Pizza;
@@ -24,6 +25,12 @@ class PizzaController extends Controller
     {
         return $service->createPizza($request->get('name'));
     }
+
+    public function createIngredient(CreateIngredientRequest $request, PizzaService $service)
+    {
+        return $service->createIngredient($request->get('name'), $request->get('price'));
+    }
+
 
     /**
      * Store a newly created resource in storage.
