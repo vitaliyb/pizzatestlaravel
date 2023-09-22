@@ -30,11 +30,15 @@ class PizzaService
         return $ingredient;
     }
 
-    public function addPizzaIngredient(Pizza $pizza, Ingredient $ingredient): Pizza
+    public function addPizzaIngredient(Pizza $pizza, Ingredient $ingredient, int $layer = 0): Pizza
     {
-        PizzaIngredient::firstOrCreate([
+        /**
+         * Let pizza have same ingredient multiple times regardless of layer
+         */
+        $pizzaIngredient = PizzaIngredient::firstOrCreate([
             'pizza_id' => $pizza->id,
-            'ingredient_id' => $ingredient->id
+            'ingredient_id' => $ingredient->id,
+            'layer' => $layer
         ]);
 
         $this->refreshPizzaPrice($pizza);

@@ -25,7 +25,8 @@ class AddPizzaIngredientRequest extends FormRequest
     {
         return [
             'pizza_id' => 'required|exists:' . Pizza::class . ',id',
-            'ingredient_id' => 'required|exists:' . Ingredient::class . ',id'
+            'ingredient_id' => 'required|exists:' . Ingredient::class . ',id',
+            'layer' => 'required|integer'
         ];
     }
 }

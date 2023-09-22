@@ -12,7 +12,8 @@ class PizzaIngredient extends Model
 
     protected $fillable = [
         'pizza_id',
-        'ingredient_id'
+        'ingredient_id',
+        'layer'
     ];
 
     public function ingredient(): BelongsTo

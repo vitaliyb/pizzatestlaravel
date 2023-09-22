@@ -38,8 +38,9 @@ class PizzaController extends Controller
     {
         $pizza = Pizza::findOrFail($request->get('pizza_id'));
         $ingredient = Ingredient::findOrFail($request->get('ingredient_id'));
+        $layer = $request->get('layer', 0);
 
-        return $service->addPizzaIngredient($pizza, $ingredient);
+        return $service->addPizzaIngredient($pizza, $ingredient, $layer);
     }
 
     public function removePizzaIngredient(RemovePizzaIngredientRequest $request, PizzaService $service)
