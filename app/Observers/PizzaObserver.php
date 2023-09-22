@@ -3,17 +3,20 @@
 namespace App\Observers;
 
 use App\Models\Pizza;
+use App\Observers\Traits\HasPriceTrait;
 
 class PizzaObserver
 {
 
+    use HasPriceTrait;
+
     public function saving(Pizza $pizza): void
     {
-        $pizza->price = $pizza->price * 100;
+        $this->setPriceAsInteger($pizza);
     }
 
     public function retrieved(Pizza $pizza): void
     {
-        $pizza->price = $pizza->price / 100;
+        $this->setPriceAsFloat($pizza);
     }
 }

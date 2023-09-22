@@ -3,17 +3,20 @@
 namespace App\Observers;
 
 use App\Models\Ingredient;
+use App\Observers\Traits\HasPriceTrait;
 
 class IngredientObserver
 {
 
+    use HasPriceTrait;
+
     public function saving(Ingredient $ingredient): void
     {
-        $ingredient->price = $ingredient->price * 100;
+        $this->setPriceAsInteger($ingredient);
     }
 
     public function retrieved(Ingredient $ingredient): void
     {
-        $ingredient->price = $ingredient->price / 100;
+        $this->setPriceAsFloat($ingredient);
     }
 }
