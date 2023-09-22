@@ -2,8 +2,6 @@
 
 namespace App\Http\Services;
 
-
-use App\Events\PizzaIngredientsUpdated;
 use App\Models\Ingredient;
 use App\Models\Pizza;
 use App\Models\PizzaIngredient;
